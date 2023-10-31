@@ -19,24 +19,36 @@
         {% endfor %}
     </div>
 </div>
-<div class="card mb-4" style="width: 18rem;">
+<div class="card mb-4" style="width: 35rem;">
     <div class="card-body">
         <h4 class="card-title">Ingredients</h4>
         {% for ingredient in ingredients %}
-        <p class="card-text ms-4">{{ingredient.name}}</p>
+        <p class="card-text ms-4">{{ ingredient.name }}</p>
         {% endfor %}
     </div>
 </div>
-<div class="card mb-4" style="width: 18rem;">
+<div class="card mb-4" style="width: 35rem;">
     <div class="card-body">
         <h4 class="card-title">Purchases</h4>
-        {% for puchase in purchases %}
-        <p class="card-text">{{puchase.menu_item.name}}</p>
-        {% endfor %}
-        <h5 class="card-title">Ingredients</h5>
-        {% for ingredient in ingredients %}
-        <p class="card-text">{{ingredient.name}}</p>
-        {% endfor %}
+        <table class="ms-4">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for purchase in purchases %}
+                <tr>
+                    <td style="padding-right: 20px">{{ purchase.menu_item.name }}</td>
+                    <td>{{ purchase.timestamp }}</td>
+                {% endfor %}
+                </tr>
+            </tbody>
+            
+        </table>
+        
+        
     </div>
 </div>
 

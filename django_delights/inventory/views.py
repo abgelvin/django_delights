@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from typing import Any
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchase
+from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm
+
 
 # Create your views here.
 
@@ -43,33 +46,45 @@ class PurchaseListView(ListView):
 class IngredientCreateView(CreateView):
     template_name = 'inventory/ingredient_form.html'
     model = Ingredient
-    fields = ['name', 'quantity', 'unit', 'price_per_unit']
-    success_url = '/ingredients/new'
+    form_class = IngredientForm
 
 
 class MenuItemCreateView(CreateView):
     template_name = 'inventory/menuitem_form.html'
     model = MenuItem
-    fields = ['name', 'price']
-    success_url = '/menu/new'
+    form_class = MenuItemForm
 
 
 class RecipeRequirementCreateView(CreateView):
     template_name = 'inventory/recipe_requirement_form.html'
     model = RecipeRequirement
-    fields = ['menu_item', 'ingredient', 'quantity']
-    success_url = '/recipe/new'
+    form_class = RecipeRequirementForm
 
 
-class PurchaseCreateView(CreateView):
-    template_name = 'inventory/purchase_list.html'
-    model = Purchase
-    fields = ['menu_item', 'timestamp']
-    queryset = Purchase.objects.all()
+class PurchaseCreateView(TemplateView):
+    template_name = 'inventory/purchase_form.html'
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['menu_items'] = [i for i in MenuItem.objects.all() if i.available()]
+        return context
+    
+    def post(self, request):
+        menu_item_id = request.POST['menu_item']
+        menu_item = MenuItem.objects.get(pk=menu_item_id)
+        requirements = menu_item.reciperequirement_set
+        purchase = Purchase(menu_item=menu_item)
 
+        for requirement in requirements.all():
+            required_ingredient = requirement.ingredient
+            required_ingredient.quantity -= requirement.quantity
+            required_ingredient.save()
+
+        purchase.save()
+        return redirect('/purchases')
+    
+    
 class IngredientUpdateView(UpdateView):
     template_name = 'inventory/ingredient_update_form.html'
     model = Ingredient
-    fields = ['name', 'quantity', 'unit', 'price_per_unit']
-    success_url = '/ingredients'
+    form_class = IngredientForm

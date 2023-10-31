@@ -1,20 +1,31 @@
 {% extends 'inventory/base.html' %}
-
+{% load static %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 
-<h1>Add Ingredient</h1>
+<h1>Add Purchase</h1>
 
 <form method="post" novalidate>
     
-        {% csrf_token %}
-        {{ form|crispy }}
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div>
+        <p>
+            <label for="menu_item">Menu item:</label>
+            <select name="menu_item" id="menu_item" required>
+                <option value selected>-----</option>
+                {% for item in menu_items %}
+                <option value={{ item.id }}>{{ item.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-success">Save</button>
+
+        </p>
+    </div>
     
-    <button type="submit" class="btn btn-success">Save</button>
 </form>
 
-<button type="primary" class="btn btn-link"><a href="{% url 'ingredients' %}">Return to Ingredient List</a></button>
+<button type="primary" class="btn btn-link"><a href="{% url 'purchases' %}">Return to Purchases</a></button>
 
 
     
