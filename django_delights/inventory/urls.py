@@ -9,7 +9,9 @@ from .views import (
     MenuItemCreateView,
     PurchaseCreateView,
     RecipeRequirementCreateView,
-    IngredientUpdateView)
+    IngredientUpdateView,
+    ReportView
+    )
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -21,5 +23,6 @@ urlpatterns = [
     path('ingredients/<pk>/update', IngredientUpdateView.as_view(), name='ingredient_update'),
     path('menu/new', MenuItemCreateView.as_view(), name='add_menuitem'),
     path('purchases/new', PurchaseCreateView.as_view(), name='add_purchase'),
-    path('recipe/new', RecipeRequirementCreateView.as_view(), name='update_recipe')
+    path('recipe/new', RecipeRequirementCreateView.as_view(), name='update_recipe'),
+    path('reports/', ReportView.as_view(), name = 'reports')
 ]

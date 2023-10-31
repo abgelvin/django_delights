@@ -9,6 +9,8 @@
             <th scope="col">Ingredient</th>
             <th scope="col">Quantity</th>
             <th scope="col">Units</th>
+            <th scope="col">Price per Unit</th>
+            <th scope="col">Current Cost</th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +21,8 @@
         <td class="me-3"><a href="{% url 'ingredient_update' pk=ingredient.pk %}">{{ ingredient.name}}</a></td>
         <td class="me-3">{{ ingredient.quantity }}</td>
         <td class="me-3">{{ ingredient.unit }}</td>
+        <td class="me-3">${{ ingredient.price_per_unit|floatformat:2 }}</td>
+        <td class="me-3">${{ ingredient.total }}</td>
     </tr>
     {% endfor %}
 

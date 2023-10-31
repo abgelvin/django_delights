@@ -1,0 +1,40 @@
+{% extends 'inventory/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>Reports</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Price</th>
+            <th scope="col">Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+    {% for purchase in purchases %}
+    <tr>
+        <td class="me-3">{{ purchase.menu_item.name}}</td>
+        <td class="me-3">{{ purchase.menu_item.price }}</td>
+        <td class="me-3">{{ purchase.timestamp }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<h2>Totals</h2>
+<div style="color: green">Total Revenue: ${{ revenue }}</div>
+<div style="color: red">Total Cost: ${{ total_cost|floatformat:2 }}</div>
+<div style="color: blue">Total Profit: ${{ profit|floatformat:2 }}</div>
+
+
+
+    
+
+
+{% endblock %}

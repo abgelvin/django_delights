@@ -5,7 +5,7 @@ from .models import Ingredient, MenuItem, RecipeRequirement, Purchase
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
-        exclude = '__all__'
+        fields = '__all__'
 
 
 class MenuItemForm(forms.ModelForm):
