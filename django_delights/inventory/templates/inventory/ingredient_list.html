@@ -1,0 +1,32 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+
+<h1>Current Inventory</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Ingredient</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Units</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+    {% for ingredient in object_list %}
+    <tr>
+        <td class="me-3"><a href="{% url 'ingredient_update' pk=ingredient.pk %}">{{ ingredient.name}}</a></td>
+        <td class="me-3">{{ ingredient.quantity }}</td>
+        <td class="me-3">{{ ingredient.unit }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<a href="{% url 'add_ingredient' %}">Add Ingredient</a>
+
+    
+
+
+{% endblock %}

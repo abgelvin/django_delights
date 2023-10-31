@@ -1,0 +1,43 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+
+<div class="card mb-4" style="width: 35rem;">
+    <div class="card-body">
+        <h4 class="card-title">Menu</h4>
+        {% for menu_item in menu_items %}
+        <ul class="menu_items">
+            <div style="clear: both">
+                <li><h6 style="display: inline-block" class="card-text">{{ menu_item.name }}</h6><h6 style="float: right">${{ menu_item.price }}</h6></li>
+            </div>
+            <ul>
+                {% for recipe_requirement in menu_item.reciperequirement_set.all %}
+                <li>{{ recipe_requirement.ingredient.name }}: {{ recipe_requirement.quantity }} {{ recipe_requirement.ingredient.unit }}</li>
+                {% endfor %}
+            </ul>
+        </ul>
+        {% endfor %}
+    </div>
+</div>
+<div class="card mb-4" style="width: 18rem;">
+    <div class="card-body">
+        <h4 class="card-title">Ingredients</h4>
+        {% for ingredient in ingredients %}
+        <p class="card-text ms-4">{{ingredient.name}}</p>
+        {% endfor %}
+    </div>
+</div>
+<div class="card mb-4" style="width: 18rem;">
+    <div class="card-body">
+        <h4 class="card-title">Purchases</h4>
+        {% for puchase in purchases %}
+        <p class="card-text">{{puchase.menu_item.name}}</p>
+        {% endfor %}
+        <h5 class="card-title">Ingredients</h5>
+        {% for ingredient in ingredients %}
+        <p class="card-text">{{ingredient.name}}</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

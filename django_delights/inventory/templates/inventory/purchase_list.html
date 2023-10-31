@@ -1,0 +1,30 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+
+<h1>Purchases Made</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Date Purchased</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+    {% for item in object_list %}
+    <tr>
+        <td class="me-3">{{ item.menu_item.name}}</td>
+        <td class="me-3">{{ item.timestamp }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<button type="primary" class="btn btn-link"><a href="add_purchase.html">Add Purchase</a></button>
+
+    
+
+
+{% endblock %}

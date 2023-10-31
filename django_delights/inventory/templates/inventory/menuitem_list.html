@@ -1,0 +1,27 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+
+<h3 class="mb-4">Current Menu Items</h3>
+
+
+{% for item in object_list %}
+<div class="card mb-4" style="width: 35rem;">
+    <div class="card-body">
+        <h4 style="display: inline-block" class="card-title">{{ item.name }}</h4><h4 style="display: inline-block; float: right">${{ item.price }}</h4>
+        <ul class="ingredients">
+            {% for recipe_requirement in item.reciperequirement_set.all %}
+            <li>{{ recipe_requirement.ingredient.name }}: {{ recipe_requirement.quantity }} {{ recipe_requirement.ingredient.unit }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endfor %}
+
+    
+<button type="primary" class="btn btn-link"><a href="{% url 'add_menuitem' %}">Add Menu Item</a></button>
+<br>
+<button type="primary" class="btn btn-link"><a href="{% url 'update_recipe' %}">Update Recipe for Existing Menu Items</a></button>
+
+
+
+{% endblock %}
