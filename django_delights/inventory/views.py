@@ -1,10 +1,9 @@
 from typing import Any
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.db.models import Sum
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import logout
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchase
 from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm
 
@@ -40,12 +39,6 @@ class MenuItemListView(LoginRequiredMixin, ListView):
     template_name = 'inventory/menuitem_list.html'
     model = MenuItem
     queryset = MenuItem.objects.all()
-
-
-# class RecipeRequirementListView(ListView):
-#     template_name = 'inventory/recipe_requirement_list.html'
-#     model = RecipeRequirement
-#     queryset = RecipeRequirement.objects.all()
 
 
 class PurchaseListView(LoginRequiredMixin, ListView):
@@ -120,14 +113,3 @@ class ReportView(LoginRequiredMixin, TemplateView):
 
         return context
 
-
-# class LoginView(LoginView):
-#     redirect_authenticated_user = True
-    
-#     def get_success_url(self) -> str:
-#         return redirect('/home')
-
-
-def log_out(request):
-    logout(request)
-    return redirect('/')
