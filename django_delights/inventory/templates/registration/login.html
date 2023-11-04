@@ -4,18 +4,17 @@
 
 {% block content %}
 
-<h1>Update Ingredient</h1>
-
 <form method="post" novalidate>
     
         {% csrf_token %}
         {{ form|crispy }}
     
-    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-success">Log In</button>
 </form>
 
-<button type="primary" class="btn btn-link"><a href="{% url 'ingredients' %}">Return to Ingredient List</a></button>
+
 
     
+
 
 {% endblock %}
